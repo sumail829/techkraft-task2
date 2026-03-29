@@ -1,4 +1,4 @@
-import Favourite from "../models/favouriteModel";
+import Favourite from "../models/favouriteModel.js";
 
 export const addFavourite = async (req, res) => {
   try {
@@ -46,6 +46,22 @@ export const removeFavourite = async (req, res) => {
 
     return res.status(200).json({
       message: "Removed from favourites",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const getMyFavourites = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const favourites = await Favourite.find({ user: userId });
+
+    return res.status(200).json({
+      message: "Fetched favourites",
+      favourites,
     });
   } catch (error) {
     console.log(error);

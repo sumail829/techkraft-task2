@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken"
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import 'dotenv/config'
-import User from "../models/userModel";
+import User from "../models/userModel.js";
 
 export const createUser=async(req,res)=>{
     try {
@@ -84,7 +84,7 @@ export const getUser=async(req,res)=>{
 
 export const getSingleUser=async(req,res)=>{
     try {
-        const singleUser=await Admin.findById(req.params.id);
+        const singleUser=await User.findById(req.params.id);
         if(!singleUser){
             return res.status(404).json({message:"User not found"});
 

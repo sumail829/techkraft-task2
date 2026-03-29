@@ -3,8 +3,8 @@ import {
   addFavourite,
   removeFavourite,
   getMyFavourites,
-} from "../controllers/favouriteController";
-import verifyUserToken from "../middleware/auth";
+} from "../controllers/favouriteController.js";
+import verifyUserToken from "../middleware/verifyUserToken.js";
 
 const router = express.Router();
 

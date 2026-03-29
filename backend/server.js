@@ -2,8 +2,8 @@ import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import userRoutes from "./routes/userRoutes"
-import favouriteRoutes from "./routes/favouriteRoutes"
+import userRoutes from "./routes/userRoutes.js"
+import favouriteRoutes from "./routes/favouriteRoutes.js"
 dotenv.config();
 
 const app = express();
