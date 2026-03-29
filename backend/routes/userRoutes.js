@@ -5,8 +5,8 @@ import verifyUserToken from "../middleware/verifyUserToken.js";
 
 const router = express.Router();
 
-router.post("/user/createUser",createUser);
-router.post("/user/loginUser",loginUser);
+router.post("/user/create",createUser);
+router.post("/user/login",loginUser);
 router.get("/user/",verifyUserToken,getUser);
 router.get("/user/:id",verifyUserToken,getSingleUser);
 router.patch("/user/:id",verifyUserToken,updateUser);

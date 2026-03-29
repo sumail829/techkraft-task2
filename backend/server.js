@@ -20,7 +20,7 @@ try {
 }
 
 app.use("/api", userRoutes);
-app.use("/api", favouriteRoutes);
+app.use("/api/favourite", favouriteRoutes);
 const PORT=process.env.PORT
 app.listen(PORT,()=>{
     console.log(`server running on port ${process.env.PORT}`)
