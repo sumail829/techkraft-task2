@@ -1,6 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken"
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 import 'dotenv/config'
 import User from "../models/userModel";
 
@@ -18,7 +19,8 @@ export const createUser=async(req,res)=>{
         const newUser=await new User({
             email,
             name,
-            password:hashedPassword
+            password:hashedPassword,
+            role: "buyer"
         }).save();
         return res.status(201).json({
             message:"User created",
@@ -47,7 +49,7 @@ export const loginUser=async(req,res)=>{
                 message:"Invalid creadencials"
             })
         }
-         const token=jwt.sign({id:user._id,email:user.email},process.env.JWT_USERTOKEN,{
+         const token=jwt.sign({id:user._id,email:user.email,role: user.role},process.env.JWT_USERTOKEN,{
             expiresIn:"7d",
         });
         const {password:_,...userData}=user._doc;
