@@ -63,8 +63,8 @@ export const loginUser=async(req,res)=>{
 export const getUser=async(req,res)=>{
     try {
         const getAllUser=await User.find();
-        // if(!getAllAdmin){
-        //     return res.status(404).json({message:"No admin registered yet"});
+        // if(!getAllUser){
+        //     return res.status(404).json({message:"No user registered yet"});
 
         // }
         if (getAllUser.length === 0) {
@@ -79,3 +79,69 @@ export const getUser=async(req,res)=>{
         })
     }
 }
+
+export const getSingleUser=async(req,res)=>{
+    try {
+        const singleUser=await Admin.findById(req.params.id);
+        if(!singleUser){
+            return res.status(404).json({message:"User not found"});
+
+        }
+        return res.status(200).json({message:"fetched single User",fetcheduser:singleUser});
+        
+    } catch (error) {
+        console.log("something went wrong",error)
+        return res.status(500).json({
+            message:"Internal server error"
+        })
+    }
+}
+
+
+export const updateUser=async(req,res)=>{
+    try {
+
+        const {id}=req.params;
+        if(!mongoose.Types.ObjectId.isValid(id)){
+            return res.status(400).json({message:"Invalid user id"})
+        }
+    
+        if(req.body.password){
+            const salt=await bcrypt.genSalt(10);
+            req.body.password=await bcrypt.hash(req.body.password,salt)
+        }
+        const modifyUser=await User.findByIdAndUpdate(req.params.id,req.body,{new:true});
+        if(!modifyUser){
+            return res.status(404).json({message:"No user found"})
+        }
+        return res.status(200).json({message:"User updated successfully",updatedUser:modifyUser})
+    } catch (error) {
+        console.log("something went wrong",error)
+        return res.status(500).json({
+            message:"Internal server error"
+        })
+    }
+}
+
+
+export const deleteUser = async (req, res) => {
+    try {
+      const { id } = req.params;
+  
+      // Validate MongoDB ObjectId
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: "Invalid user ID" });
+      }
+  
+      const deletedUser = await User.findByIdAndDelete(id);
+  
+      if (!deletedUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      return res.status(200).json({ message: "User deleted successfully" });
+    } catch (error) {
+      console.log("Something went wrong:", error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  };
