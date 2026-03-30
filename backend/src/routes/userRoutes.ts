@@ -1,9 +1,9 @@
-import express from "express";
-import { createUser,loginUser,getSingleUser,getUser,updateUser,deleteUser} from "../controllers/userController.js";
-import verifyUserToken from "../middleware/verifyUserToken.js";
+import express, { Router } from "express";
+import { createUser,loginUser,getSingleUser,getUser,updateUser,deleteUser} from "../controllers/userController";
+import verifyUserToken from "../middleware/verifyUserToken";
 
 
-const router = express.Router();
+const router: Router = express.Router();
 
 router.post("/user/create",createUser);
 router.post("/user/login",loginUser);

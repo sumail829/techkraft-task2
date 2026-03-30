@@ -50,7 +50,7 @@ export const addFavourite = (propertyId: string) =>
   });
 
 export const removeFavourite = (propertyId: string) =>
-  request<{ message: string }>(`/favourite/remove/${propertyId}`, {
+  request<{ message: string }>(`/favourite/${propertyId}`, {
     method: "DELETE",
   });
 
