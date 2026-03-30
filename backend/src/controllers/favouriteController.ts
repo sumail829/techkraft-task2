@@ -11,6 +11,7 @@ interface FavouriteParams {
 }
 
 
+
 export const addFavourite = async (
   req: Request<{}, {}, FavouriteBody>,
   res: Response
@@ -47,7 +48,7 @@ export const addFavourite = async (
 
 // 👉 REMOVE FAVOURITE
 export const removeFavourite = async (
-  req: Request<FavouriteParams>,
+  req: Request<{ propertyId: string }>,
   res: Response
 ): Promise<void> => {
   try {
@@ -72,7 +73,7 @@ export const removeFavourite = async (
     res.status(500).json({ message: "Internal server error" });
   }
 };
-// 👉 GET MY FAVOURITES
+
 export const getMyFavourites = async (
   req: Request,
   res: Response

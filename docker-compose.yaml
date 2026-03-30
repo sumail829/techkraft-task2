@@ -1,0 +1,61 @@
+services:
+
+  mongo:
+    image: mongo:7
+    container_name: nestly-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: nestly
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"          
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: nestly-backend
+    image: sumail829/nestly-backend
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      PORT: 7000
+      MONGODB_URL: mongodb://mongo:27017/nestly
+      JWT_USERTOKEN: ${JWT_USERTOKEN:-change_thisadsdasdas asd}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3002}
+    ports:
+      - "7000:7000"
+    # healthcheck:
+    #   test: ["CMD", "wget", "-qO-", "http://localhost:7000/api/health"]
+    #   interval: 15s
+    #   timeout: 5s
+    #   retries: 3
+    #   start_period: 10s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:7000/api}
+    container_name: nestly-frontend
+    image: sumail829/nestly-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:7000/api}
+    ports:
+      - "3002:3002"
+
+volumes:
+  mongo_data:
+    driver: local
