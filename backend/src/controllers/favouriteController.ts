@@ -1,7 +1,7 @@
 import { Request, Response,RequestHandler } from "express";
 import Favourite from "../models/favouriteModel";
 
-// 👉 Body + Params Types
+
 interface FavouriteBody {
   propertyId: string;
 }
@@ -10,13 +10,13 @@ interface FavouriteParams {
   propertyId: string;
 }
 
-// 👉 ADD FAVOURITE
+
 export const addFavourite = async (
   req: Request<{}, {}, FavouriteBody>,
   res: Response
 ): Promise<void> => {
   try {
-    const userId = req.user!.id; // ! = we trust middleware
+    const userId = req.user!.id; 
 
     const { propertyId } = req.body;
 
