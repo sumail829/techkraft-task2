@@ -147,7 +147,7 @@ volumes:
  
 ```bash
 cat > .env << 'ENV'
-JWT_USERTOKEN=replace_with_a_long_random_secret
+JWT_USERTOKEN=replace_with_a_long_random_secretss
 FRONTEND_URL=http://localhost:3002
 NEXT_PUBLIC_API_URL=http://localhost:7000/api
 ENV
