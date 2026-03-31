@@ -115,12 +115,6 @@ services:
       FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3002}
     ports:
       - "7000:7000"
-    # healthcheck:
-    #   test: ["CMD", "wget", "-qO-", "http://localhost:7000/api/health"]
-    #   interval: 15s
-    #   timeout: 5s
-    #   retries: 3
-    #   start_period: 10s
 
   frontend:
     build:
