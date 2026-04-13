@@ -24,11 +24,11 @@ export default function PropertyCard({
   return (
     <div className="bg-surface border border-border rounded-card overflow-hidden flex flex-col hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
 
-      {/* Thumbnail */}
+      
       <div className="relative h-40 bg-linear-to-br from-clay-light to-cream flex items-center justify-center">
         <span className="text-4xl opacity-40">🏠</span>
 
-        {/* Tag badge */}
+   
         {property.tag && (
           <span
             className={[
@@ -40,7 +40,7 @@ export default function PropertyCard({
           </span>
         )}
 
-        {/* Heart button */}
+
         <button
           onClick={() => onToggle(property.id)}
           disabled={loading}
@@ -56,7 +56,6 @@ export default function PropertyCard({
         </button>
       </div>
 
-      {/* Content */}
       <div className="p-4 flex flex-col flex-1">
         <span className="text-[10px] font-medium uppercase tracking-widest text-stone mb-1">
           {property.type}

@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 import { Types } from "mongoose";
 
-// 👉 Define token payload type
 interface JwtPayload {
   id: string;
   email: string;
@@ -30,7 +29,7 @@ const verifyUserToken = (
       process.env.JWT_USERTOKEN as string
     ) as JwtPayload;
 
-    // 👉 attach user to request
+
     req.user = {
        id: new Types.ObjectId(decoded.id),
       email: decoded.email,

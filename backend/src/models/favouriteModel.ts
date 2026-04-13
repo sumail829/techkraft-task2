@@ -15,7 +15,7 @@ const favouriteSchema = new Schema(
   { timestamps: true }
 );
 
-// 👉 Auto infer type from schema
+
 type IFavourite = InferSchemaType<typeof favouriteSchema>;
 
 const Favourite = mongoose.model<IFavourite>("Favourite", favouriteSchema);

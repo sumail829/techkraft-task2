@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import "dotenv/config";
 import User from "../models/userModel";
 
-// 👉 Define Request Body Types
+
 interface RegisterBody {
   email: string;
   password: string;
@@ -17,7 +17,6 @@ interface LoginBody {
   password: string;
 }
 
-// 👉 CREATE USER
 export const createUser = async (
   req: Request<{}, {}, RegisterBody>,
   res: Response
@@ -51,7 +50,7 @@ export const createUser = async (
   }
 };
 
-// 👉 LOGIN USER
+
 export const loginUser = async (
   req: Request<{}, {}, LoginBody>,
   res: Response

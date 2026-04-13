@@ -16,7 +16,9 @@ app.use(express.json());
 
 app.use("/api", userRoutes);
 app.use("/api/favourite", favouriteRoutes);
-
+app.get("/", (req, res) => {
+  res.send("Backend is running");
+});
 
 const PORT: number = Number(process.env.PORT) || 5000;
 
@@ -26,7 +28,7 @@ const startServer = async (): Promise<void> => {
     await mongoose.connect(process.env.MONGODB_URL as string);
     console.log(" MongoDB connected successfully");
 
-    app.listen(PORT, () => {
+    app.listen(PORT,"0.0.0.0", () => {
       console.log(` Server running on port ${PORT}`);
     });
 
